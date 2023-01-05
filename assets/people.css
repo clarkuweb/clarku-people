@@ -1,0 +1,27 @@
+.clarku-people figure,
+.people-card figure {
+	aspect-ratio: 1;
+	border-radius: 50%;
+	max-width: 240px;
+	overflow: hidden;
+} 
+.initials {
+	align-items: center;
+	background-color: rgb(var(--color__base_600));
+	color: rgb(var(--color__base_300));
+	display: flex;
+	font-size: calc(var(--type__size) * 4);
+	font-weight: 600;
+	justify-content: center;
+}
+a.initials-link {
+	text-decoration: none;
+}
+
+.people-card h3.p-name,
+.people-card p {
+	margin-bottom: .5rem;
+}
+.people-card p {
+	font-size: calc(var(--type__size) * .8);
+}
