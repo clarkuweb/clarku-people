@@ -176,7 +176,7 @@ function clarku_people_archive_override($query_vars) {
 	}
 
 	// check if the query is for the root people slug (archive)
-	if( 'cu_people' === $query_vars['post_type'] && ! isset( $query_vars['name'] ) ) {	
+	if( isset( $query_vars['post_type'] ) && 'cu_people' === $query_vars['post_type'] && ! isset( $query_vars['name'] ) ) {	
 		//attempt to load the page matching the $pagename slug
 		$page = get_page_by_path( 'people' , OBJECT );
 

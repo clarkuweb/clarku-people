@@ -38,5 +38,3 @@ The plugin creates a new URL slug `/people` so that posts display as `/people/[p
 ## Theming the output
 
 This plugin includes default templates. The templates will likely require customization to match your site's theme. To customize the templates, copy one or both of `clarku-people/templates/person-card.php` and `clarku-people/templates/single-people.php` to your theme's directory -- either into your theme's root, or into a directory in your theme called `template-parts`. `person-card` handles the shortcode output, and `single-people` handles the page view of each person.
-
-Edit the files in your theme to taste.
