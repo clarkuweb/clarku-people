@@ -191,6 +191,12 @@ function clarku_people_archive_override($query_vars) {
 add_filter('request', 'clarku_people_archive_override' );
 
 
+function clarku_people_activate() {
+	flush_rewrite_rules();
+}
+register_activation_hook( __FILE__, 'clarku_people_activate' );
+
+
 
 // require the individual field definitions from a different file
 require_once dirname(__FILE__) . '/inc/clarku-people-fields.php';
