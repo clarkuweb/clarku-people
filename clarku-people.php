@@ -202,6 +202,56 @@ register_activation_hook( __FILE__, 'clarku_people_activate' );
 
 
 
+
+/**
+ * 
+ */
+
+function clarku_people_block_render_callback( $block_attributes, $content ) {
+
+	$people = do_shortcode('[clarku-people]');
+	return ( $people );
+
+// 	
+// 	$recent_posts = wp_get_recent_posts( array(
+// 		'numberposts' => 1,
+// 		'post_status' => 'publish',
+// 	) );
+// 	if ( count( $recent_posts ) === 0 ) {
+// 		return 'No posts';
+// 	}
+// 	$post = $recent_posts[ 0 ];
+// 	$post_id = $post['ID'];
+// 	return sprintf(
+// 		'<a class="wp-block-my-plugin-latest-post" href="%1$s">%2$s</a>',
+// 		esc_url( get_permalink( $post_id ) ),
+// 		esc_html( get_the_title( $post_id ) )
+// 	);
+}
+
+function clarku_people_block() {
+	// automatically load dependencies and version
+	$asset_file = include( plugin_dir_path( __FILE__ ) . 'block/editor.asset.php');
+
+	wp_register_script(
+		'clarku-people-block-editor', plugins_url( 'block/editor.js', __FILE__ ), $asset_file['dependencies'], $asset_file['version']
+	);
+	wp_enqueue_style(
+		'clarku-people-block-editor-styles', plugins_url( 'block/editor.css', __FILE__ )
+	);
+
+
+	register_block_type( 'clarku/people', array(
+		'api_version' => 2,
+		'editor_script' => 'clarku-people-block-editor',
+		'editor_style' => 'clarku-people-block-editor-styles',
+		'render_callback' => 'clarku_people_block_render_callback'
+	));
+}
+add_action( 'init', 'clarku_people_block' );
+
+
+
 // require the individual field definitions from a different file
 require_once dirname(__FILE__) . '/inc/clarku-people-fields.php';
 

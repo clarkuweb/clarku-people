@@ -1,0 +1,11 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"title": "People",
+	"name": "clarku/people",
+	"category": "layout",
+	"textdomain": "clarku",
+	"example": {},
+	"editorStyle": "file:./editor.css",
+	"editorScript": "file:./editor.js",
+}
