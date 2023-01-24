@@ -15,8 +15,10 @@ if ( !defined('ABSPATH') )
 define( 'CLARKU_PEOPLE_PATH', plugin_dir_path( __FILE__ ) );
 
 
-function clarku_people_enqueue() {
-	wp_enqueue_style( 'clarku-people-styles', plugins_url( 'assets/people.css', __FILE__ ) );
+function clarku_people_enqueue( $force=FALSE ) {
+	if( is_singular( 'cu_people' ) || TRUE === $force ) {
+		wp_enqueue_style( 'clarku-people-styles', plugins_url( 'assets/people.css', __FILE__ ) );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'clarku_people_enqueue' );
 
@@ -71,6 +73,8 @@ add_shortcode( 'clarku-people', 'clarku_people_shortcode' );
  * @param arr $args @see https://codex.wordpress.org/Class_Reference/WP_Query
  */
 function clarku_people_get_people($args) {
+
+	clarku_people_enqueue( TRUE );
 
 	$default_args = array(
 		'post_type' => 'cu_people',
