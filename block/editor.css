@@ -23,6 +23,9 @@
 	padding: 2rem;
 	width: calc(100%/3 - 1rem);
 }
+.clarku-people .people-card {
+	margin-bottom: 0;
+}
 
 .people-card header, .people-card a, .people-card figure {
 	width: 100%;

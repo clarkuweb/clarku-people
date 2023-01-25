@@ -209,24 +209,28 @@ register_activation_hook( __FILE__, 'clarku_people_activate' );
 
 function clarku_people_block_render_callback( $block_attributes, $content ) {
 
-	$people = do_shortcode('[clarku-people]');
+	$shortcode_bits = array('clarku-people');
+	
+	$class_names = array('clarku-people');
+
+	if( isset( $block_attributes['align'] ) ) {
+		$class_names[] = 'align' . $block_attributes['align'];
+	}
+	if( isset( $block_attributes['className'] ) ) {
+		$class_names[] = $block_attributes['className'];
+	}
+	if( isset( $block_attributes['peoplegroup'] ) ) {
+		$shortcode_bits[] = 'group="' . $block_attributes['peoplegroup'] . '"';
+	}	
+
+	$shortcode_bits[] = 'before=\'<div class="clarku-people ' . implode(' ', $class_names ) . '">\'';
+	$shortcode_bits[] = 'after="</div>"';
+
+	$sc = '[' . implode( ' ', $shortcode_bits ) . ']';
+	
+	$people = do_shortcode($sc);
 	return ( $people );
 
-// 	
-// 	$recent_posts = wp_get_recent_posts( array(
-// 		'numberposts' => 1,
-// 		'post_status' => 'publish',
-// 	) );
-// 	if ( count( $recent_posts ) === 0 ) {
-// 		return 'No posts';
-// 	}
-// 	$post = $recent_posts[ 0 ];
-// 	$post_id = $post['ID'];
-// 	return sprintf(
-// 		'<a class="wp-block-my-plugin-latest-post" href="%1$s">%2$s</a>',
-// 		esc_url( get_permalink( $post_id ) ),
-// 		esc_html( get_the_title( $post_id ) )
-// 	);
 }
 
 function clarku_people_block() {
@@ -245,7 +249,14 @@ function clarku_people_block() {
 		'api_version' => 2,
 		'editor_script' => 'clarku-people-block-editor',
 		'editor_style' => 'clarku-people-block-editor-styles',
-		'render_callback' => 'clarku_people_block_render_callback'
+		'render_callback' => 'clarku_people_block_render_callback',
+		'supports' => array(
+			'align' => ['wide', 'full'],
+		),
+		'attributes' => array( 
+			'peoplegroup' => ['type' => 'string'],
+			'columns' => ['type' => 'string']
+		)
 	));
 }
 add_action( 'init', 'clarku_people_block' );
