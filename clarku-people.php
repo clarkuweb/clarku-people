@@ -41,7 +41,7 @@ function clarku_people_shortcode($attributes, $content, $shortcode) {
 			'group' => '', // slug, slug2, slug3
 			'group_operator' => 'OR',
 			'id' => NULL,
-			'posts_per_page' => 200,
+			'posts_per_page' => 96,
 			'thumbnail' => '',
 			'link' => TRUE, // link to the people post
 			'email' => TRUE, // display the person's email
@@ -51,11 +51,12 @@ function clarku_people_shortcode($attributes, $content, $shortcode) {
     ), $attributes, $shortcode);
     
     // check the shortcode attributes for boolean falses, and convert from default if necessary
-    foreach( array('link', 'email', 'phone', 'thumbnail') as $value ) {
-			if( strtolower( $attributes[$value] ) == 'false' ) {
-				$attributes[$value] = FALSE;
-			}
+    foreach( array('link', 'email', 'phone') as $value ) {
+    	$attributes[$value] = (bool)$attributes[$value]; 
     }
+		if( strtolower( $attributes['thumbnail'] ) == 'false' ) {
+			$attributes['thumbnail'] = FALSE;
+		}
     
 		ob_start();
 		clarku_people_get_people( $attributes );
@@ -201,18 +202,15 @@ function clarku_people_activate() {
 register_activation_hook( __FILE__, 'clarku_people_activate' );
 
 
-
-
 /**
- * 
+ * Renders the people block both on page and in editor
  */
-
 function clarku_people_block_render_callback( $block_attributes, $content ) {
 
 	$shortcode_bits = array('clarku-people');
 	
 	$class_names = array('clarku-people');
-
+	
 	if( isset( $block_attributes['align'] ) ) {
 		$class_names[] = 'align' . $block_attributes['align'];
 	}
@@ -221,6 +219,9 @@ function clarku_people_block_render_callback( $block_attributes, $content ) {
 	}
 	if( isset( $block_attributes['peoplegroup'] ) ) {
 		$shortcode_bits[] = 'group="' . $block_attributes['peoplegroup'] . '"';
+	}	
+	if( isset( $block_attributes['link'] ) ) {
+		$shortcode_bits[] = 'link="' . $block_attributes['link'] . '"';
 	}	
 
 	$shortcode_bits[] = 'before=\'<div class="clarku-people ' . implode(' ', $class_names ) . '">\'';
@@ -233,6 +234,9 @@ function clarku_people_block_render_callback( $block_attributes, $content ) {
 
 }
 
+/**
+ * Registers the block editor block for people
+ */
 function clarku_people_block() {
 	// automatically load dependencies and version
 	$asset_file = include( plugin_dir_path( __FILE__ ) . 'block/editor.asset.php');
@@ -255,11 +259,14 @@ function clarku_people_block() {
 		),
 		'attributes' => array( 
 			'peoplegroup' => ['type' => 'string'],
-			'columns' => ['type' => 'string']
+			'columns' => ['type' => 'string'],
+			'link' => ['type' => 'boolean']
 		)
 	));
 }
 add_action( 'init', 'clarku_people_block' );
+
+
 
 
 

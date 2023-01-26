@@ -5,6 +5,7 @@
 		useBlockProps = blockEditor.useBlockProps,
 		__ = i18n.__,
 		SelectControl = components.SelectControl;
+		ToggleControl = components.ToggleControl;
 		
 
 	var groups = [{
@@ -26,7 +27,8 @@
 	registerBlockType( 'clarku/people', {
 		apiVersion: 2,
 		attributes: {
-			peoplegroup: { type: 'string' }
+			peoplegroup: { type: 'string' },
+			link: { type: 'boolean' }
 		},
 		title: 'People',
 		icon: 'megaphone',
@@ -60,10 +62,24 @@
 							onChange: function(v) {
 								props.setAttributes( { peoplegroup: v } );
 							}
-						}
-						)	
-					)
-				)
+						}),
+						el( ToggleControl, {
+							label: __('Link'),
+							checked: props.attributes.link,
+							help: function() {
+								if(props.attributes.link == true) {
+									return __('On: Link to people pages.')
+								} else {
+									return __('Off: Do not link to people pages.')
+								}
+							},
+							onChange: function(v) {
+								console.log(props.attributes);
+								props.setAttributes( { link: v } );
+							}
+						})
+					) // end PanelBody
+				) // end InspectorControls
 			);
 		},
 	});

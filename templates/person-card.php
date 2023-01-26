@@ -5,6 +5,11 @@
 	$phone = get_post_meta( $id, '_cu_people_phone', TRUE );
 	$title = get_post_meta( $id, '_cu_people_title', TRUE );
 
+	// @todo: consider an option to conditionally make a card link	
+// 	if( empty( get_the_content() ) ) {
+// 		$args['link'] = FALSE;
+// 	}
+
  
  	$has_thumbnail = ( $args['thumbnail'] !== FALSE && has_post_thumbnail() ) ? TRUE : FALSE;
 	
