@@ -74,7 +74,6 @@
 								}
 							},
 							onChange: function(v) {
-								console.log(props.attributes);
 								props.setAttributes( { link: v } );
 							}
 						})
