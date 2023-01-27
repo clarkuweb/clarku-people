@@ -1,0 +1,66 @@
+.clarku-people {
+	display: flex;
+	flex-wrap: wrap;
+	gap: calc(var(--type__size) * 1);
+	.people-card {
+		margin-bottom: 0;
+	}
+}
+
+.people-card {
+	align-items: flex-start;
+	background-color: rgba(var(--color__base_900),.5);
+	border-radius: 2px;
+	box-shadow: 0 1px 8px #eaeaea;
+	color: #000;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	font-size: calc(var(--type__size) * .9);
+	gap: calc(var(--type__size) * 1);
+	margin-bottom: calc(var(--type__size) * 2);
+	min-width: 5rem;
+	padding: 2rem;
+	width: calc(100%/3 - 1rem);
+}
+.clarku-people .people-card {
+	margin-bottom: 0;
+}
+
+.people-card header, .people-card a, .people-card figure {
+	width: 100%;
+}
+.people-card figure {
+	margin-left: auto;
+	margin-right: auto;
+}
+.people-card ul, .people-card li {
+	font-size: calc(var(--type__size) * .85);
+	list-style: none;
+	margin-left: 0;
+	padding-left: 0;
+}
+.people-card .p-name {
+	font-size: calc(var(--type__size) * 1.1);
+	font-weight: bold;
+}
+
+.people-card figure {
+	aspect-ratio: 1;
+	border-radius: 50%;
+	max-width: 240px;
+	overflow: hidden;
+} 
+
+.initials {
+	align-items: center;
+	background-color: rgb(var(--color__base_600));
+	color: rgb(var(--color__base_300));
+	display: flex;
+	font-size: calc(var(--type__size) * 4);
+	font-weight: 600;
+	justify-content: center;
+}
+a.initials-link {
+	text-decoration: none !important;
+}

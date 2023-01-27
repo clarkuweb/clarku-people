@@ -1,0 +1,10 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"title": "People Meta",
+	"name": "clarku/people_meta",
+	"category": "text",
+	"textdomain": "clarku",
+	"example": {},
+	"editorScript": "file:./editor.js",
+}

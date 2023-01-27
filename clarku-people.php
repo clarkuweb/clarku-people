@@ -13,7 +13,7 @@ if ( !defined('ABSPATH') )
 	die('-1');
 
 define( 'CLARKU_PEOPLE_PATH', plugin_dir_path( __FILE__ ) );
-
+define( 'CLARKU_PEOPLE_URL', plugin_dir_url( __FILE__ ) );
 
 function clarku_people_enqueue( $force=FALSE ) {
 	if( is_singular( 'cu_people' ) || TRUE === $force ) {
