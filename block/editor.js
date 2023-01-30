@@ -13,7 +13,7 @@
 			label: __('Select a Group...')
 	}];
 	wp.apiFetch({
-		path: '/wp/v2/peoplegroups'
+		path: '/wp/v2/peoplegroups/?per_page=50'
 	}).then(function(g) {
 		for (let [key, item] of Object.entries(g)) {
 			groups.push({
