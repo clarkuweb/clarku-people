@@ -3,7 +3,7 @@
 Plugin Name: ClarkU People
 Plugin URI: 
 Description: Create custom people post type for people
-Version: 0.1
+Version: 1.0
 Author: ClarkU
 Author URI: 
 */
@@ -15,6 +15,9 @@ if ( !defined('ABSPATH') )
 define( 'CLARKU_PEOPLE_PATH', plugin_dir_path( __FILE__ ) );
 define( 'CLARKU_PEOPLE_URL', plugin_dir_url( __FILE__ ) );
 
+/**
+ * Enqueue front end styles.
+ */
 function clarku_people_enqueue( $force=FALSE ) {
 	if( is_singular( 'cu_people' ) || TRUE === $force ) {
 		wp_enqueue_style( 'clarku-people-styles', plugins_url( 'assets/people.css', __FILE__ ) );
@@ -22,10 +25,33 @@ function clarku_people_enqueue( $force=FALSE ) {
 }
 add_action( 'wp_enqueue_scripts', 'clarku_people_enqueue' );
 
+/**
+ * Enqueue back end styles.
+ */
 function clarku_people_enqueue_editor_styles() {
 	wp_enqueue_style( 'clarku-people-editor-styles', plugins_url( 'assets/people-editor.css', __FILE__ ) );
 }
 add_action('enqueue_block_editor_assets', 'clarku_people_enqueue_editor_styles');
+
+
+/**
+ * Store defaults somewhere we can get at them.
+ * @return arr
+ */
+function clarku_people_get_default_args() {
+	return array(
+			'group' => '', // slug, slug2, slug3
+			'group_operator' => 'OR',
+			'id' => NULL,
+			'posts_per_page' => 96,
+			'thumbnail' => '',
+			'link' => TRUE, // link to the people post
+			'email' => TRUE, // display the person's email
+			'phone' => TRUE, // display the person's phone
+			'before' => '<div class="clarku-people">',
+			'after' => '</div>',
+    );
+}
 
 /**
  * Create a shortcode for querying people.
@@ -37,18 +63,7 @@ function clarku_people_shortcode($attributes, $content, $shortcode) {
     $attributes = array_change_key_case((array)$attributes, CASE_LOWER);
     
     // default attributes
-    $attributes = shortcode_atts(array(
-			'group' => '', // slug, slug2, slug3
-			'group_operator' => 'OR',
-			'id' => NULL,
-			'posts_per_page' => 96,
-			'thumbnail' => '',
-			'link' => TRUE, // link to the people post
-			'email' => TRUE, // display the person's email
-			'phone' => TRUE, // display the person's phone
-			'before' => '<div class="clarku-people">',
-			'after' => '</div>',
-    ), $attributes, $shortcode);
+    $attributes = shortcode_atts(clarku_people_get_default_args(), $attributes, $shortcode);
     
     // check the shortcode attributes for boolean falses, and convert from default if necessary
     foreach( array('link', 'email', 'phone') as $value ) {

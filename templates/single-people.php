@@ -1,5 +1,10 @@
 <?php
-	
+
+	// args isn't always set, if it isn't, use the defaults
+	if ( !isset( $args ) ) {
+		$args = clarku_people_get_default_args();
+	}
+
 	$id = get_the_ID();
 	$email = get_post_meta( $id, '_cu_people_email', TRUE );
 	$phone = get_post_meta( $id, '_cu_people_phone', TRUE );
