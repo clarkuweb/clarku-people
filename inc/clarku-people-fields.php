@@ -76,7 +76,7 @@ function clarku_people_metabox_html( $post ) {
 		<div class="components-panel__row">
 		<div class="components-base-control__field">
 			<label class="components-base-control__label" for="cu-people-phone"><?php echo $label ?> </label>
-			<input class="components-text-control__input" type="text" id="<?php echo esc_attr( sanitize_title_with_dashes( $key ) ); ?>" name="<?php echo esc_attr( $key ); ?>" required="" value="<?php echo esc_attr( $value ); ?>">
+			<input class="components-text-control__input" type="text" id="<?php echo esc_attr( sanitize_title_with_dashes( $key ) ); ?>" name="<?php echo esc_attr( $key ); ?>" value="<?php echo esc_attr( $value ); ?>">
 		</div>
 		</div>
 		<?php
