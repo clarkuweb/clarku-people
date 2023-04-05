@@ -1,6 +1,7 @@
 ( function() {
 	var __ = wp.i18n.__;
 	var useState = wp.element.useState;
+	var useEntityProp = wp.coreData.useEntityProp;
 	
 	var el = wp.element.createElement;
 	var Fragment = wp.element.Fragment;
@@ -26,13 +27,8 @@
 	 */
 	function settingsPanel() {
 			
-// 		[ sortName, setSortName ] = useState( wp.data.select('core/editor').getEditedPostAttribute('meta')._cu_people_sortname );
-		[ title, setTitle ] = useState( wp.data.select('core/editor').getEditedPostAttribute('meta')._cu_people_title );
-		[ email, setEmail ] = useState( wp.data.select('core/editor').getEditedPostAttribute('meta')._cu_people_email );
-		[ phone, setphone ] = useState( wp.data.select('core/editor').getEditedPostAttribute('meta')._cu_people_phone );
+		[ meta, setMeta ] = useEntityProp( 'postType', wp.data.select( 'core/editor' ).getCurrentPostType(), 'meta' );
 		
-		var sortName = wp.data.select('core/editor').getEditedPostAttribute('meta')._cu_people_sortname;
-
 		return el(
 			Fragment,
 			{},
@@ -44,34 +40,34 @@
 				},
 				el( TextControl, { 
 					label: __( 'Sort Order', 'clarku' ),
- 					value: '',
+ 					value: meta['cu_people_sortname'],
 					help: 'Tip: user "aa" to pin people to top of lists.',
 					onChange: function(v) {
- 						wp.data.dispatch('core/editor').editPost({meta: {_cu_people_sortname: v }});
+ 						setMeta( { meta, cu_people_sortname: v } );
 					}
 					}
 				),
 				el( TextControl, { 
 					label: __( 'Title', 'clarku' ),
- 					value: title,
+ 					value: meta['cu_people_title'],
 					onChange: function(v) {
- 						wp.data.dispatch('core/editor').editPost({meta: {_cu_people_title: v }});
+ 						setMeta( { meta, cu_people_title: v } );
 					}
 					}
 				),
 				el( TextControl, { 
 					label: __( 'Email', 'clarku' ),
- 					value: email,
+ 					value: meta['cu_people_email'],
 					onChange: function(v) {
- 						wp.data.dispatch('core/editor').editPost({meta: {_cu_people_email: v }});
+ 						setMeta( { meta, cu_people_email: v } );
 					}
 					}
 				),
 				el( TextControl, { 
 					label: __( 'Phone', 'clarku' ),
- 					value: phone,
+ 					value: meta['cu_people_phone'],
 					onChange: function(v) {
- 						wp.data.dispatch('core/editor').editPost({meta: {_cu_people_phone: v }});
+ 						setMeta( { meta, cu_people_phone: v } );
 					}
 					}
 				),
