@@ -3,7 +3,7 @@
 Plugin Name: ClarkU People
 Plugin URI: 
 Description: Create custom people post type for people
-Version: 1.0
+Version: 1.1
 Author: ClarkU
 Author URI: 
 */
@@ -98,11 +98,11 @@ function clarku_people_get_people($args) {
 		'meta_query' => array(
 			'relation' => 'AND',
 			array(
-				'key' => '_cu_people_sortname',
+				'key' => 'cu_people_sortname',
 				'compare' => 'EXISTS'
 			),
 			array(
-				'key' => '_cu_people_sortname',
+				'key' => 'cu_people_sortname',
 				'compare' => '!=',
 				'value' => ''
 			),
@@ -150,11 +150,11 @@ function clarku_people_get_people($args) {
 	$default_args['meta_query'] = array(
 			'relation' => 'OR',
 			array(
-				'key' => '_cu_people_sortname',
+				'key' => 'cu_people_sortname',
 				'compare' => 'NOT EXISTS'
 			),
 			array(
-				'key' => '_cu_people_sortname',
+				'key' => 'cu_people_sortname',
 				'compare' => '=',
 				'value' => ''
 			),
